@@ -56,4 +56,14 @@ async function enterPiP() {
 		const main = document.querySelector("#main");
 		if (conteiner && main) main.appendChild(conteiner);
 	}, { once: true });
-}
+	
+};
+
+function baixar() {
+	const texto = document.getElementById("bloquinho").value;
+	const titulo = document.getElementById("titulo").value;
+
+	var blob = new Blob([texto], { type: "text/plain: charset=utf-8" });
+
+	saveAs(blob, titulo + '.txt');
+};

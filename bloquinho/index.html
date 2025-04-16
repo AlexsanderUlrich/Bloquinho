@@ -7,18 +7,23 @@
 		<title>Bloquinho dos cria</title>
 		<link rel="stylesheet" href="index.css" />
 		<meta name="theme-color" id="theme-meta" content="#222233" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 		<script src="index.js"></script>
 	</head>
 	<body>		
 		<h1>📝 Meu Bloco de Notas</h1>
 		
 		<main id="main">
+			<input class="titulo" id="titulo" placeholder="Digite o título aqui..." />
 			<div id="conteiner">
 				<textarea id="bloquinho" placeholder="Digite sua nota aqui..."></textarea>
 				<br>			
 			</div>			
 		</main>	
 
-		<input type="button" onclick="enterPiP();" value="Enter PiP" />		
+		<section class="footer">
+			<input class="botao" type="button" onclick="enterPiP();" value="Ativar Picture-in-Picture" />		
+			<input class="botao" type="button" onclick="baixar();" value="Baixar Nota" />		
+		</section>
 	</body>
 </html>

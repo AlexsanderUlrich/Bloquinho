@@ -25,6 +25,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	gap: 10px;
 }
 
 textarea {
@@ -38,4 +39,37 @@ textarea {
 	border: none;
 	border-radius: 5px;
 	resize: none;
+}
+
+.titulo {
+	padding: 10px;
+	background-color: #333344;
+	color: #ddddff;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	width: 80vw;
+}
+
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+}
+
+.botao {
+	background-color: #333344;
+	color: gray;
+	display: flex;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-radius: 10px;
+}
+
+.botao:hover {
+	background-color: #222233;
+	color: #ddddff;
 }
