@@ -68,20 +68,21 @@ function baixar() {
 	saveAs(blob, titulo + '.txt');
 };
 
-// Carrega conteúdo salvo (se existir)
 window.addEventListener("DOMContentLoaded", () => {
+	const titulo = document.getElementById("titulo");
+	const bloquinho = document.getElementById("bloquinho");
+
 	const tituloSalvo = localStorage.getItem("titulo");
 	const textoSalvo = localStorage.getItem("texto");
 
-	if (tituloSalvo) document.getElementById("titulo").value = tituloSalvo;
-	if (textoSalvo) document.getElementById("bloquinho").value = textoSalvo;
-});
+	if (tituloSalvo) titulo.value = tituloSalvo;
+	if (textoSalvo) bloquinho.value = textoSalvo;
 
-// Salva automaticamente quando o usuário digita
-document.getElementById("titulo").addEventListener("input", (e) => {
-	localStorage.setItem("titulo", e.target.value);
-});
+	titulo.addEventListener("input", (e) => {
+		localStorage.setItem("titulo", e.target.value);
+	});
 
-document.getElementById("bloquinho").addEventListener("input", (e) => {
-	localStorage.setItem("texto", e.target.value);
+	bloquinho.addEventListener("input", (e) => {
+		localStorage.setItem("texto", e.target.value);
+	});
 });
