@@ -1,4 +1,8 @@
 let pipWindow = null;
+const uniqueIdTitulo = "autosave_titulo";
+const uniqueIdTexto = "autosave_texto";
+const autosaveDelay = 1000; // 1 segundo
+let autosaveLoaded = false;
 
 async function enterPiP() {
 	const conteiner = document.querySelector("#conteiner");
@@ -12,7 +16,7 @@ async function enterPiP() {
 	// Move o conteúdo para a janela PiP
 	pipWindow.document.body.appendChild(conteiner);
 
-	// Adiciona estilos básicos para manter aparência
+	// Adiciona estilos básicos
 	const style = pipWindow.document.createElement("style");
 	style.textContent = `
 		html, body {
@@ -56,33 +60,38 @@ async function enterPiP() {
 		const main = document.querySelector("#main");
 		if (conteiner && main) main.appendChild(conteiner);
 	}, { once: true });
-	
-};
+}
 
 function baixar() {
 	const texto = document.getElementById("bloquinho").value;
 	const titulo = document.getElementById("titulo").value;
 
-	var blob = new Blob([texto], { type: "text/plain: charset=utf-8" });
+	const blob = new Blob([texto], { type: "text/plain;charset=utf-8" });
+	saveAs(blob, titulo + ".txt");
+}
 
-	saveAs(blob, titulo + '.txt');
-};
-
-window.addEventListener("DOMContentLoaded", () => {
+// 🔄 Autosave contínuo no estilo SimpleMDE
+function iniciarAutosave() {
 	const titulo = document.getElementById("titulo");
 	const bloquinho = document.getElementById("bloquinho");
 
-	const tituloSalvo = localStorage.getItem("titulo");
-	const textoSalvo = localStorage.getItem("texto");
+	if (!autosaveLoaded) {
+		const tituloSalvo = localStorage.getItem(uniqueIdTitulo);
+		const textoSalvo = localStorage.getItem(uniqueIdTexto);
 
-	if (tituloSalvo) titulo.value = tituloSalvo;
-	if (textoSalvo) bloquinho.value = textoSalvo;
+		if (tituloSalvo) titulo.value = tituloSalvo;
+		if (textoSalvo) bloquinho.value = textoSalvo;
 
-	titulo.addEventListener("input", (e) => {
-		localStorage.setItem("titulo", e.target.value);
-	});
+		autosaveLoaded = true;
+	}
 
-	bloquinho.addEventListener("input", (e) => {
-		localStorage.setItem("texto", e.target.value);
-	});
-});
+	function salvar() {
+		localStorage.setItem(uniqueIdTitulo, titulo.value);
+		localStorage.setItem(uniqueIdTexto, bloquinho.value);
+		setTimeout(salvar, autosaveDelay);
+	}
+
+	salvar();
+}
+
+window.addEventListener("DOMContentLoaded", iniciarAutosave);
